@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="#stylesheet"?>
+<website>
+  <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" id="stylesheet">
+    <xsl:output method="html" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    
+    <xsl:template match="/">
+      <html xmlns="http://www.w3.org/1999/xhtml">
+        <head>
+          <title><xsl:value-of select="website/profile/name"/> - Portfolio</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+          <style type="text/css">
+            * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+            }
+            
+            body {
+              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+              line-height: 1.6;
+              color: #333;
+              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+              min-height: 100vh;
+            }
+            
+            .container {
+              max-width: 1200px;
+              margin: 0 auto;
+              padding: 0 20px;
+            }
+            
+            header {
+              background: rgba(255, 255, 255, 0.1);
+              backdrop-filter: blur(10px);
+              padding: 2rem 0;
+              text-align: center;
+              margin-bottom: 3rem;
+            }
+            
+            h1 {
+              font-size: 3rem;
+              color: white;
+              margin-bottom: 0.5rem;
+              text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            }
+            
+            .subtitle {
+              font-size: 1.2rem;
+              color: rgba(255,255,255,0.9);
+              font-weight: 300;
+            }
+            
+            .section {
+              background: white;
+              margin: 2rem 0;
+              padding: 2rem;
+              border-radius: 15px;
+              box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+              backdrop-filter: blur(10px);
+            }
+            
+            h2 {
+              color: #667eea;
+              font-size: 2rem;
+              margin-bottom: 1.5rem;
+              border-bottom: 3px solid #667eea;
+              padding-bottom: 0.5rem;
+            }
+            
+            .about-content {
+              font-size: 1.1rem;
+              line-height: 1.8;
+              color: #555;
+            }
+            
+            .projects-grid {
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+              gap: 2rem;
+              margin-top: 2rem;
+            }
+            
+            .project-card {
+              background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+              color: white;
+              padding: 2rem;
+              border-radius: 12px;
+              transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            
+            .project-card:hover {
+              transform: translateY(-5px);
+              box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            }
+            
+            .project-title {
+              font-size: 1.5rem;
+              margin-bottom: 1rem;
+              font-weight: 600;
+            }
+            
+            .project-description {
+              margin-bottom: 1rem;
+              opacity: 0.9;
+            }
+            
+            .project-tech {
+              font-size: 0.9rem;
+              background: rgba(255,255,255,0.2);
+              padding: 0.3rem 0.8rem;
+              border-radius: 20px;
+              display: inline-block;
+              margin: 0.2rem;
+            }
+            
+            .skills-grid {
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+              gap: 1.5rem;
+              margin-top: 2rem;
+            }
+            
+            .skill-category {
+              background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+              color: white;
+              padding: 1.5rem;
+              border-radius: 10px;
+              text-align: center;
+            }
+            
+            .skill-category h3 {
+              margin-bottom: 1rem;
+              font-size: 1.3rem;
+            }
+            
+            .skill-list {
+              list-style: none;
+            }
+            
+            .skill-list li {
+              background: rgba(255,255,255,0.2);
+              margin: 0.5rem 0;
+              padding: 0.5rem;
+              border-radius: 5px;
+            }
+            
+            .contact-info {
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+              gap: 2rem;
+              margin-top: 2rem;
+            }
+            
+            .contact-item {
+              text-align: center;
+              padding: 1.5rem;
+              background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+              color: white;
+              border-radius: 10px;
+              transition: transform 0.3s ease;
+            }
+            
+            .contact-item:hover {
+              transform: scale(1.05);
+            }
+            
+            .contact-label {
+              font-weight: 600;
+              margin-bottom: 0.5rem;
+              font-size: 1.1rem;
+            }
+            
+            .contact-value {
+              font-size: 1rem;
+              opacity: 0.9;
+            }
+            
+            footer {
+              text-align: center;
+              padding: 2rem 0;
+              color: rgba(255,255,255,0.8);
+              margin-top: 3rem;
+            }
+            
+            @media (max-width: 768px) {
+              h1 {
+                font-size: 2rem;
+              }
+              
+              .section {
+                padding: 1.5rem;
+                margin: 1rem 0;
+              }
+              
+              .projects-grid,
+              .skills-grid,
+              .contact-info {
+                grid-template-columns: 1fr;
+              }
+            }
+          </style>
+        </head>
+        <body>
+          <header>
+            <div class="container">
+              <h1><xsl:value-of select="website/profile/name"/></h1>
+              <p class="subtitle"><xsl:value-of select="website/profile/title"/></p>
+            </div>
+          </header>
+          
+          <div class="container">
+            <section class="section">
+              <h2>About Me</h2>
+              <div class="about-content">
+                <xsl:value-of select="website/profile/bio"/>
+              </div>
+            </section>
+            
+            <section class="section">
+              <h2>Projects</h2>
+              <div class="projects-grid">
+                <xsl:for-each select="website/projects/project">
+                  <div class="project-card">
+                    <div class="project-title"><xsl:value-of select="title"/></div>
+                    <div class="project-description"><xsl:value-of select="description"/></div>
+                    <div>
+                      <xsl:for-each select="technologies/tech">
+                        <span class="project-tech"><xsl:value-of select="."/></span>
+                      </xsl:for-each>
+                    </div>
+                  </div>
+                </xsl:for-each>
+              </div>
+            </section>
+            
+            <section class="section">
+              <h2>Skills</h2>
+              <div class="skills-grid">
+                <xsl:for-each select="website/skills/category">
+                  <div class="skill-category">
+                    <h3><xsl:value-of select="@name"/></h3>
+                    <ul class="skill-list">
+                      <xsl:for-each select="skill">
+                        <li><xsl:value-of select="."/></li>
+                      </xsl:for-each>
+                    </ul>
+                  </div>
+                </xsl:for-each>
+              </div>
+            </section>
+            
+            <section class="section">
+              <h2>Contact</h2>
+              <div class="contact-info">
+                <div class="contact-item">
+                  <div class="contact-label">Email</div>
+                  <div class="contact-value"><xsl:value-of select="website/contact/email"/></div>
+                </div>
+                <div class="contact-item">
+                  <div class="contact-label">Phone</div>
+                  <div class="contact-value"><xsl:value-of select="website/contact/phone"/></div>
+                </div>
+                <div class="contact-item">
+                  <div class="contact-label">Location</div>
+                  <div class="contact-value"><xsl:value-of select="website/contact/location"/></div>
+                </div>
+                <div class="contact-item">
+                  <div class="contact-label">Website</div>
+                  <div class="contact-value"><xsl:value-of select="website/contact/website"/></div>
+                </div>
+              </div>
+            </section>
+          </div>
+          
+          <footer>
+            <div class="container">
+              <p>© 2025 <xsl:value-of select="website/profile/name"/>. Built with XML &amp; XSLT.</p>
+            </div>
+          </footer>
+        </body>
+      </html>
+    </xsl:template>
+  </xsl:stylesheet>
+  
+  <profile>
+    <name>Alex Johnson</name>
+    <title>Full Stack Developer &amp; Creative Technologist</title>
+    <bio>Passionate developer with over 5 years of experience creating innovative web solutions. I specialize in modern web technologies and love building applications that make a difference. When I'm not coding, you can find me exploring new technologies, contributing to open source projects, or enjoying the great outdoors.</bio>
+  </profile>
+  
+  <projects>
+    <project>
+      <title>E-Commerce Platform</title>
+      <description>A fully responsive e-commerce solution with real-time inventory management, secure payment processing, and advanced analytics dashboard.</description>
+      <technologies>
+        <tech>React</tech>
+        <tech>Node.js</tech>
+        <tech>MongoDB</tech>
+        <tech>Stripe API</tech>
+      </technologies>
+    </project>
+    <project>
+      <title>Task Management App</title>
+      <description>Collaborative project management tool with real-time updates, team collaboration features, and advanced reporting capabilities.</description>
+      <technologies>
+        <tech>Vue.js</tech>
+        <tech>Express</tech>
+        <tech>Socket.io</tech>
+        <tech>PostgreSQL</tech>
+      </technologies>
+    </project>
+    <project>
+      <title>Weather Analytics Dashboard</title>
+      <description>Interactive weather dashboard with historical data analysis, predictive modeling, and beautiful data visualizations.</description>
+      <technologies>
+        <tech>Python</tech>
+        <tech>Django</tech>
+        <tech>D3.js</tech>
+        <tech>PostgreSQL</tech>
+      </technologies>
+    </project>
+    <project>
+      <title>Mobile Fitness Tracker</title>
+      <description>Cross-platform mobile app for fitness tracking with social features, achievement system, and personalized workout recommendations.</description>
+      <technologies>
+        <tech>React Native</tech>
+        <tech>Firebase</tech>
+        <tech>Redux</tech>
+        <tech>ML Kit</tech>
+      </technologies>
+    </project>
+  </projects>
+  
+  <skills>
+    <category name="Frontend Development">
+      <skill>HTML5 &amp; CSS3</skill>
+      <skill>JavaScript (ES6+)</skill>
+      <skill>React &amp; Vue.js</skill>
+      <skill>TypeScript</skill>
+      <skill>Responsive Design</skill>
+      <skill>SASS/SCSS</skill>
+    </category>
+    <category name="Backend Development">
+      <skill>Node.js &amp; Express</skill>
+      <skill>Python &amp; Django</skill>
+      <skill>RESTful APIs</skill>
+      <skill>GraphQL</skill>
+      <skill>Microservices</skill>
+      <skill>Docker</skill>
+    </category>
+    <category name="Database &amp; Cloud">
+      <skill>MongoDB &amp; PostgreSQL</skill>
+      <skill>Redis</skill>
+      <skill>AWS Services</skill>
+      <skill>Google Cloud Platform</skill>
+      <skill>Serverless Architecture</skill>
+      <skill>CI/CD Pipelines</skill>
+    </category>
+    <category name="Tools &amp; Technologies">
+      <skill>Git &amp; GitHub</skill>
+      <skill>Webpack &amp; Vite</skill>
+      <skill>Jest &amp; Testing</skill>
+      <skill>Figma &amp; Design</skill>
+      <skill>Agile Methodologies</skill>
+      <skill>Performance Optimization</skill>
+    </category>
+  </skills>
+  
+  <contact>
+    <email>alex.johnson@email.com</email>
+    <phone>+1 (555) 123-4567</phone>
+    <location>San Francisco, CA</location>
+    <website>www.alexjohnson.dev</website>
+  </contact>
+</website>
